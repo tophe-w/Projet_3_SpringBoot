@@ -1,4 +1,4 @@
-package com.WildCodeSchool.Projet_3.model;
+package com.WildCodeSchool.Projet_3.entity;
 
 
 import jakarta.persistence.*;
