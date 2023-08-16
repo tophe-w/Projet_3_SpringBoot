@@ -25,9 +25,9 @@ public User createUser(@RequestBody User user) {
     return userRepository.save(user);
 }
 
-    @GetMapping("/user/{id}")
+    @GetMapping("/users/{id}")
 @ResponseBody
-public User getUser(@PathVariable Integer id) {   //Si jamais il y a un problème, essayer peut être de modifier 'Integer' en 'Long'. A la base c'était 'Long' mais ça ne marchait pas avec 'findById'..
+public User getUser(@PathVariable Long id) {
     return userRepository.findById(id).orElse(null);
 }
 
