@@ -1,16 +1,33 @@
 package com.WildCodeSchool.Projet_3.entity;
 
+public class EmailRequest {
 
-    
-    public class EmailRequest {
-        private String message;
-    
-        public String getMessage() {
-            return message;
-        }
-    
-        public void setMessage(String message) {
-            this.message = message;
-        }
+    private String subject;
+    private String email;
+    private String body;
+
+    public String getSubject() {
+        return subject;
     }
-     
+
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
+
+    public String getBody() {
+        return body;
+    }
+
+    public void setBody(String body) {git add .add
+        this.body = body;
+    }
+
+  
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+}
