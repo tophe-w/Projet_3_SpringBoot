@@ -18,7 +18,7 @@ public class EmailRequest {
         return body;
     }
 
-    public void setBody(String body) {
+    public void setBody(String body) {git add .add
         this.body = body;
     }
 
