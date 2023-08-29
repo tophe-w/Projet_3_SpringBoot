@@ -1,24 +1,35 @@
 package com.WildCodeSchool.Projet_3.entity; 
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import jakarta.persistence.*; // importe toutes les annotations de jakarta.persistence grâce à l'étoile
  
 
 @Entity
-public class User {
+@Table(name = "user")
+public class UserEntity {
  
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+  @JoinColumn(name = "role_id")
+  private Role role;
+
     private String name;
     private String firstname;
-    private String pseudo;
+    private String username;
     private String email;
     private String password;
-    private boolean is_admin;
     private Date birthday;
     private String avatar;
     private String color;
@@ -38,9 +49,26 @@ public class User {
     }
 
 
-    public User() {
+    public UserEntity() {
 
     }
+
+    public UserEntity(String name, String password, boolean is_connected, String email, Role role,Date birthday,String firstname, String username, 
+            String avatar, String color, boolean is_available) {
+        this.name = name;
+        this.firstname = firstname;
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.birthday = birthday;
+        this.avatar = avatar;
+        this.color = color;
+        this.is_available = is_available;
+        this.is_connected = is_connected;
+        this.role = role;
+    }
+
+    
 
 
     public int getId() {
@@ -73,13 +101,13 @@ public class User {
     }
 
 
-    public String getPseudo() {
-        return pseudo;
+    public String getUsername() {
+        return username;
     }
 
 
-    public void setPseudo(String pseudo) {
-        this.pseudo = pseudo;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
 
@@ -103,14 +131,15 @@ public class User {
     }
 
 
-    public boolean isIs_admin() {
-        return is_admin;
-    }
+    public Role getRole() {
+        return role;
+      }
+    
+      public void setRole(Role role) {
+        this.role = role;
+      }
+    
 
-
-    public void setIs_admin(boolean is_admin) {
-        this.is_admin = is_admin;
-    }
 
 
     public Date getBirthday() {
@@ -161,6 +190,15 @@ public class User {
     public void setIs_connected(boolean is_connected) {
         this.is_connected = is_connected;
     }
+
+      public UserDetails asUserDetails() {
+    List<GrantedAuthority> authorities = new ArrayList<>();
+    authorities.add(new SimpleGrantedAuthority(this.getRole().getType()));
+    return User.withUsername(email)
+        .password(password)
+        .authorities(authorities)
+        .build();
+  }
 
 
     
