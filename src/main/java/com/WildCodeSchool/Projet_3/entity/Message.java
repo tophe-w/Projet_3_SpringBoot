@@ -15,12 +15,12 @@ public class Message {
 
  @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REFRESH, optional = false)
     @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    private UserEntity user;
 
-    public User getUser() {
+    public UserEntity getUser() {
     return user;        
 }
-    public void setUser(User user) {
+    public void setUser(UserEntity user) {
     this.user = user;
 }
     public int getId() {
