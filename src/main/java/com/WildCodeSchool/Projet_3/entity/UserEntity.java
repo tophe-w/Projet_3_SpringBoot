@@ -27,7 +27,7 @@ public class UserEntity {
 
     private String name;
     private String firstname;
-    private String pseudo;
+    private String username;
     private String email;
     private String password;
     private Date birthday;
@@ -53,11 +53,11 @@ public class UserEntity {
 
     }
 
-    public UserEntity(String name, String password, boolean is_connected, String email, Role role,Date birthday,String firstname, String pseudo, 
+    public UserEntity(String name, String password, boolean is_connected, String email, Role role,Date birthday,String firstname, String username, 
             String avatar, String color, boolean is_available) {
         this.name = name;
         this.firstname = firstname;
-        this.pseudo = pseudo;
+        this.username = username;
         this.email = email;
         this.password = password;
         this.birthday = birthday;
@@ -101,13 +101,13 @@ public class UserEntity {
     }
 
 
-    public String getPseudo() {
-        return pseudo;
+    public String getUsername() {
+        return username;
     }
 
 
-    public void setPseudo(String pseudo) {
-        this.pseudo = pseudo;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
 

@@ -40,7 +40,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     FilterChain chain
   ) throws ServletException, IOException {
     final String authorizationHeader = request.getHeader("Authorization");
-        System.out.println("@@@@@@@@@@@ " + authorizationHeader);
+        System.out.println("@@@@@@@@@@@ hearders vide " + authorizationHeader);
 
     String username = null;
     String token = null;
@@ -67,7 +67,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
         usernamePasswordAuthenticationToken.setDetails(
           new WebAuthenticationDetailsSource().buildDetails(request)
         );
-        System.out.println("@@@@@@@@@@@ " + usernamePasswordAuthenticationToken);
+        System.out.println("@@@@@@@@@@@ Toker nul " + usernamePasswordAuthenticationToken);
         // On ajoute UsernamePasswordAuthenticationToken dans le contexte de sécurité juste ici avec le set
         SecurityContextHolder
           .getContext()

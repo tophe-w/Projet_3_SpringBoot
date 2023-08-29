@@ -3,7 +3,7 @@ package com.WildCodeSchool.Projet_3.dto;
 import java.sql.Date;
 
 public class UserDto {
-  private String pseudo;
+  private String username;
   private String firstname;
   private String name;
   private Date birthday; 
@@ -49,12 +49,12 @@ public void setBirthday(Date birthday) {
 }
 
 
-  public String getPseudo() {
-    return pseudo;
+  public String getUsername() {
+    return username;
   }
 
-  public void setPseudo(String pseudo) {
-    this.pseudo = pseudo;
+  public void setUsername(String username) {
+    this.username = username;
   }
 
   public String getPassword() {
