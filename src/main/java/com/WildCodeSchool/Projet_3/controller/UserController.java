@@ -1,6 +1,7 @@
 package com.WildCodeSchool.Projet_3.controller;
 
 import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -81,4 +82,11 @@ public UserEntity getUser(@PathVariable Integer id) {   //Si jamais il y a un pr
 }
 
 
+@GetMapping("/admin/users")
+    @ResponseBody
+    public List<UserEntity> getUsers() {
+        List<UserEntity> userList = userRepository.findAll();
+        return userList;
+    }
 }
+
