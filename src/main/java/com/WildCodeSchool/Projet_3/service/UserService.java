@@ -75,6 +75,7 @@ public class UserService {
       throw new RuntimeException("Le mot de passe est incorrect");
     }
     user.setRole(userEntity.getRole().getType());
+    user.setUsername(userEntity.getUsername());
     return user;
   }
 

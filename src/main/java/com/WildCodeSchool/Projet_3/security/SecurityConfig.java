@@ -45,8 +45,8 @@ public class SecurityConfig {
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     http
         .authorizeHttpRequests((requests) -> requests
-            .requestMatchers("/register", "/login", "/user/{id}").permitAll()
-            .requestMatchers("/logout", "/user-admin-data").hasAnyAuthority("USER", "ADMIN")
+            .requestMatchers("/register","/send-email" , "/login").permitAll()
+            .requestMatchers("/logout",  "/user/{id}").hasAnyAuthority("USER", "ADMIN")
             .requestMatchers("/admin", "/only-admin-data").hasAuthority("ADMIN")
             .requestMatchers("/other_routes_example/**")
             .authenticated())
