@@ -116,34 +116,39 @@ public UserEntity getUser(@PathVariable Integer id) {   //Si jamais il y a un pr
         return userList;
     }
 
-    @PutMapping("/admin/users/{id}/account/{avatar}")
+    @PutMapping("/users/{id}/account/avatar/{avatar}")
     @ResponseBody
-    public ResponseEntity<?> updateUserAccount(@PathVariable Integer id, String avatar, @RequestBody UserEntity user) {
+    public ResponseEntity<?> updateUserAvatarAccount(@PathVariable Integer id, @PathVariable String avatar) {
         UserEntity avatarUpdate = userRepository.findById(id).orElse(null);
 
         if (avatarUpdate == null) {
           System.out.println("userToUpdate = null");
             return ResponseEntity.notFound().build(); // Utilisateur non trouvé
         }
-        // userRepository.setAvatar(avatar);
+          if(avatarUpdate.getAvatar() != avatar){
               avatarUpdate.setAvatar(avatar);
-
-        userRepository.save(avatarUpdate);
+              userRepository.save(avatarUpdate);
+          }
         return ResponseEntity.ok().build();
       }
-      // if (user.getAvatar() != avatar) {
-      //   userToUpdate.setAvatar(avatar);
-      //     userRepository.save(userToUpdate);
-      //     return ResponseEntity.ok().build(); // Mise à jour réussie
-      // } else {
-      //     return ResponseEntity.badRequest().body("avatar invalide."); // ID de rôle incorrect
-      // }
-      
-    // @PutMapping("/admin/users/{id}/account/")
-    // @ResponseBody
-    //      public ResponseEntity<?> updateAvatar(@PathVariable Integer id, String avatar, @RequestBody UserEntity user) {
-    //        return System.out.println(avatar);
-    //      }
+
+
+      @PutMapping("/users/{id}/account/color/{color}")
+    @ResponseBody
+    public ResponseEntity<?> updateUserColorAccount(@PathVariable Integer id, @PathVariable String color) {
+        UserEntity colorUpdate = userRepository.findById(id).orElse(null);
+
+        if (colorUpdate == null) {
+          System.out.println("userToUpdate = null");
+            return ResponseEntity.notFound().build(); // Utilisateur non trouvé
+        }
+          if(colorUpdate.getColor() != color){
+              colorUpdate.setColor(color);
+              userRepository.save(colorUpdate);
+          }
+        return ResponseEntity.ok().build();
+      }
+    
 
 
 }
