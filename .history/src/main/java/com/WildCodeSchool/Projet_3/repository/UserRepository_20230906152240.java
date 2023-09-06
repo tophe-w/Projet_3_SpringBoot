@@ -12,7 +12,7 @@ public interface UserRepository extends JpaRepository<UserEntity, Integer> {
     
     Optional<UserEntity> findByUsername(String string);
     Optional<UserEntity> findByEmail(String string);
-    // Optional<UserEntity> setAvatar(String avatar);
+    Optional<UserEntity> setAvatar(String );
 
 
 }

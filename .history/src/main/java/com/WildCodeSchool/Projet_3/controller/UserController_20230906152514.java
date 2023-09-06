@@ -119,16 +119,14 @@ public UserEntity getUser(@PathVariable Integer id) {   //Si jamais il y a un pr
     @PutMapping("/admin/users/{id}/account/{avatar}")
     @ResponseBody
     public ResponseEntity<?> updateUserAccount(@PathVariable Integer id, String avatar, @RequestBody UserEntity user) {
-        UserEntity avatarUpdate = userRepository.findById(id).orElse(null);
+        UserEntity userToUpdate = userRepository.findById(id).orElse(null);
 
-        if (avatarUpdate == null) {
+        if (userToUpdate == null) {
           System.out.println("userToUpdate = null");
             return ResponseEntity.notFound().build(); // Utilisateur non trouvé
         }
         // userRepository.setAvatar(avatar);
-              avatarUpdate.setAvatar(avatar);
-
-        userRepository.save(avatarUpdate);
+        userRepository.save(userToUpdate);
         return ResponseEntity.ok().build();
       }
       // if (user.getAvatar() != avatar) {

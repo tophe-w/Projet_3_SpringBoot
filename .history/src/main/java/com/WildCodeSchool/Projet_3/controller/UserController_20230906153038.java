@@ -126,7 +126,7 @@ public UserEntity getUser(@PathVariable Integer id) {   //Si jamais il y a un pr
             return ResponseEntity.notFound().build(); // Utilisateur non trouvé
         }
         // userRepository.setAvatar(avatar);
-              avatarUpdate.setAvatar(avatar);
+              userToUpdate.setAvatar(avatar);
 
         userRepository.save(avatarUpdate);
         return ResponseEntity.ok().build();

@@ -119,26 +119,21 @@ public UserEntity getUser(@PathVariable Integer id) {   //Si jamais il y a un pr
     @PutMapping("/admin/users/{id}/account/{avatar}")
     @ResponseBody
     public ResponseEntity<?> updateUserAccount(@PathVariable Integer id, String avatar, @RequestBody UserEntity user) {
-        UserEntity avatarUpdate = userRepository.findById(id).orElse(null);
+        UserEntity userToUpdate = userRepository.findById(id).orElse(null);
 
-        if (avatarUpdate == null) {
-          System.out.println("userToUpdate = null");
+        if (userToUpdate == null) {
             return ResponseEntity.notFound().build(); // Utilisateur non trouvé
         }
-        // userRepository.setAvatar(avatar);
-              avatarUpdate.setAvatar(avatar);
+        
+        // if (user.getAvatar() != avatar) {
+        //   userToUpdate.setAvatar(avatar);
+        //     userRepository.save(userToUpdate);
+        //     return ResponseEntity.ok().build(); // Mise à jour réussie
+        // } else {
+        //     return ResponseEntity.badRequest().body("avatar invalide."); // ID de rôle incorrect
+        // }
+    }
 
-        userRepository.save(avatarUpdate);
-        return ResponseEntity.ok().build();
-      }
-      // if (user.getAvatar() != avatar) {
-      //   userToUpdate.setAvatar(avatar);
-      //     userRepository.save(userToUpdate);
-      //     return ResponseEntity.ok().build(); // Mise à jour réussie
-      // } else {
-      //     return ResponseEntity.badRequest().body("avatar invalide."); // ID de rôle incorrect
-      // }
-      
     // @PutMapping("/admin/users/{id}/account/")
     // @ResponseBody
     //      public ResponseEntity<?> updateAvatar(@PathVariable Integer id, String avatar, @RequestBody UserEntity user) {

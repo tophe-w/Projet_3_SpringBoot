@@ -116,34 +116,23 @@ public UserEntity getUser(@PathVariable Integer id) {   //Si jamais il y a un pr
         return userList;
     }
 
-    @PutMapping("/admin/users/{id}/account/{avatar}")
+    @PutMapping("/admin/users/{id}/account")
     @ResponseBody
-    public ResponseEntity<?> updateUserAccount(@PathVariable Integer id, String avatar, @RequestBody UserEntity user) {
-        UserEntity avatarUpdate = userRepository.findById(id).orElse(null);
-
-        if (avatarUpdate == null) {
-          System.out.println("userToUpdate = null");
+    public ResponseEntity<?> updateUserRole(@PathVariable Integer id, @RequestBody UserEntity user) {
+        UserEntity userToUpdate = userRepository.findById(id).orElse(null);
+        
+        if (userToUpdate == null) {
             return ResponseEntity.notFound().build(); // Utilisateur non trouvé
         }
-        // userRepository.setAvatar(avatar);
-              avatarUpdate.setAvatar(avatar);
-
-        userRepository.save(avatarUpdate);
-        return ResponseEntity.ok().build();
-      }
-      // if (user.getAvatar() != avatar) {
-      //   userToUpdate.setAvatar(avatar);
-      //     userRepository.save(userToUpdate);
-      //     return ResponseEntity.ok().build(); // Mise à jour réussie
-      // } else {
-      //     return ResponseEntity.badRequest().body("avatar invalide."); // ID de rôle incorrect
-      // }
-      
-    // @PutMapping("/admin/users/{id}/account/")
-    // @ResponseBody
-    //      public ResponseEntity<?> updateAvatar(@PathVariable Integer id, String avatar, @RequestBody UserEntity user) {
-    //        return System.out.println(avatar);
-    //      }
-
+    
+        // Vérifiez que le nouvel ID de rôle est soit 1 (Admin) soit 2 (User)
+        if (user.getRole().getId() == 1 || user.getRole().getId() == 2) {
+            userToUpdate.setRole(user.getRole());
+            userRepository.save(userToUpdate);
+            return ResponseEntity.ok().build(); // Mise à jour réussie
+        } else {
+            return ResponseEntity.badRequest().body("ID de rôle invalide."); // ID de rôle incorrect
+        }
+    }
 
 }
