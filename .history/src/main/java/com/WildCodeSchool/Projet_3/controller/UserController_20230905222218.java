@@ -109,7 +109,7 @@ public UserEntity getUser(@PathVariable Integer id) {   //Si jamais il y a un pr
         }
     }
 
-    @GetMapping("/account")
+    @GetMapping("/admin/users")
     @ResponseBody
     public List<UserEntity> getUsersData() {
         List<UserEntity> userList = userRepository.findAll();

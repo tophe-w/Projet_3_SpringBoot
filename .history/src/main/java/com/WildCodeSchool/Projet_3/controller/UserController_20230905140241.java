@@ -56,20 +56,26 @@ public class UserController {
   }
 
   @PostMapping("/login")
-  @ResponseBody
-  public ResponseEntity<ApiResponse<Object>> login(@RequestBody UserDto user) {
+@ResponseBody
+public ResponseEntity<ApiResponse<Object>> login(@RequestBody UserDto user) {
     HashMap<String, Object> data = new HashMap<>();
     try {
-      userService.login(user);
-      String token = jwtUtilService.generateToken(user);
-      data.put("user", user);
-      data.put("token", token);
-      return new ResponseEntity<>(new ApiResponse<>(data), HttpStatus.OK);
+        UserEntity userEntity = userService.getUserEntityByEmail(user.getEmail());
+        if (userService.verifyHashedPasswordDuringLogin(user.getPassword(), userEntity.getPassword())) {
+            // Mot de passe correct, continuez avec la connexion
+            String token = jwtUtilService.generateToken(user);
+            data.put("user", user);
+            data.put("token", token);
+            return new ResponseEntity<>(new ApiResponse<>(data), HttpStatus.OK);
+        } else {
+            // Mot de passe incorrect
+            throw new RuntimeException("Le mot de passe est incorrect");
+        }
     } catch (Exception e) {
-      System.out.println(e.getMessage());
-      return new ResponseEntity<>(new ApiResponse<>(e.getMessage()), HttpStatus.BAD_REQUEST);
+        System.out.println(e.getMessage());
+        return new ResponseEntity<>(new ApiResponse<>(e.getMessage()), HttpStatus.BAD_REQUEST);
     }
-  }
+}
 
 
   @GetMapping("/user/{id}")
@@ -107,13 +113,6 @@ public UserEntity getUser(@PathVariable Integer id) {   //Si jamais il y a un pr
         } else {
             return ResponseEntity.badRequest().body("ID de rôle invalide."); // ID de rôle incorrect
         }
-    }
-
-    @GetMapping("/account")
-    @ResponseBody
-    public List<UserEntity> getUsersData() {
-        List<UserEntity> userList = userRepository.findAll();
-        return userList;
     }
 
 }

@@ -47,7 +47,7 @@ public class UserService {
     String hashedpassword = bcryptEncoder.encode(user.getPassword());
 
     Role userRole = roleRepository.findById(2L).get();
-    UserEntity newUser = new UserEntity(user.getName(),hashedpassword,false,user.getEmail(),userRole,user.getBirthday(),user.getFirstname(),user.getUsername(),"avatar/AvatarH1.png","",false);
+    UserEntity newUser = new UserEntity(user.getName(),hashedpassword,false,user.getEmail(),userRole,user.getBirthday(),user.getFirstname(),user.getUsername(),"","",false);
     user.setRole(userRole.getType());
     userRepository.save(newUser);
     return user;
@@ -75,6 +75,7 @@ public class UserService {
       throw new RuntimeException("Le mot de passe est incorrect");
     }
     user.setRole(userEntity.getRole().getType());
+    
     return user;
   }
 
