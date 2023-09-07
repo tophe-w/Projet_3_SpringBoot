@@ -109,4 +109,46 @@ public UserEntity getUser(@PathVariable Integer id) {   //Si jamais il y a un pr
         }
     }
 
+    @GetMapping("/account")
+    @ResponseBody
+    public List<UserEntity> getUsersData() {
+        List<UserEntity> userList = userRepository.findAll();
+        return userList;
+    }
+
+    @PutMapping("/users/{id}/account/avatar/{avatar}")
+    @ResponseBody
+    public ResponseEntity<?> updateUserAvatarAccount(@PathVariable Integer id, @PathVariable String avatar) {
+        UserEntity avatarUpdate = userRepository.findById(id).orElse(null);
+
+        if (avatarUpdate == null) {
+          System.out.println("userToUpdate = null");
+            return ResponseEntity.notFound().build(); // Utilisateur non trouvé
+        }
+          if(avatarUpdate.getAvatar() != avatar){
+              avatarUpdate.setAvatar(avatar);
+              userRepository.save(avatarUpdate);
+          }
+        return ResponseEntity.ok().build();
+      }
+
+
+      @PutMapping("/users/{id}/account/color/{color}")
+    @ResponseBody
+    public ResponseEntity<?> updateUserColorAccount(@PathVariable Integer id, @PathVariable String color) {
+        UserEntity colorUpdate = userRepository.findById(id).orElse(null);
+
+        if (colorUpdate == null) {
+          System.out.println("userToUpdate = null");
+            return ResponseEntity.notFound().build(); // Utilisateur non trouvé
+        }
+          if(colorUpdate.getColor() != color){
+              colorUpdate.setColor(color);
+              userRepository.save(colorUpdate);
+          }
+        return ResponseEntity.ok().build();
+      }
+    
+
+
 }

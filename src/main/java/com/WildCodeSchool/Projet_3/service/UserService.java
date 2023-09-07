@@ -47,7 +47,7 @@ public class UserService {
     String hashedpassword = bcryptEncoder.encode(user.getPassword());
 
     Role userRole = roleRepository.findById(2L).get();
-    UserEntity newUser = new UserEntity(user.getName(),hashedpassword,false,user.getEmail(),userRole,user.getBirthday(),user.getFirstname(),user.getUsername(),"","",false);
+    UserEntity newUser = new UserEntity(user.getName(),hashedpassword,false,user.getEmail(),userRole,user.getBirthday(),user.getFirstname(),user.getUsername(),"avatar/AvatarH1.png","",false);
     user.setRole(userRole.getType());
     userRepository.save(newUser);
     return user;
