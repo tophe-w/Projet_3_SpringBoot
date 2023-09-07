@@ -3,6 +3,7 @@ package com.WildCodeSchool.Projet_3.dto;
 import java.sql.Date;
 
 public class UserDto {
+  private int id;
   private String username;
   private String firstname;
   private String name;
@@ -16,8 +17,13 @@ public class UserDto {
   }
 
 
+public int getId() {
+    return id;
+}
 
-
+public int setId(int id) {
+    return this.id = id;
+}
 
   public String getName() {
     return name;

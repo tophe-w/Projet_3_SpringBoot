@@ -76,6 +76,8 @@ public class UserService {
     }
     user.setRole(userEntity.getRole().getType());
     user.setUsername(userEntity.getUsername());
+    user.setId(userEntity.getId());
+    
     return user;
   }
 

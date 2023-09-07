@@ -64,6 +64,7 @@ public class UserController {
       String token = jwtUtilService.generateToken(user);
       data.put("user", user);
       data.put("token", token);
+      data.put("id", Integer.toString(user.setId(user.getId())));
       return new ResponseEntity<>(new ApiResponse<>(data), HttpStatus.OK);
     } catch (Exception e) {
       System.out.println(e.getMessage());
@@ -81,6 +82,10 @@ public UserEntity getUser(@PathVariable Integer id) {   //Si jamais il y a un pr
     return userRepository.findById(id).orElse(null);
 
 }
+
+
+
+
 
 
 @GetMapping("/admin/users")
