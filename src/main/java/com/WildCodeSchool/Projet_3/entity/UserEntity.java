@@ -30,7 +30,11 @@ public class UserEntity {
     private String username;
     private String email;
     private String password;
+
+    @Column(name = "birthday", columnDefinition = "DATE")
+    @Temporal(TemporalType.DATE)
     private Date birthday;
+    
     private String avatar;
     private String color;
     private boolean is_available;
