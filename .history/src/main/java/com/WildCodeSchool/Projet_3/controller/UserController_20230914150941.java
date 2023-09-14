@@ -64,7 +64,7 @@ public class UserController {
       String token = jwtUtilService.generateToken(user);
       data.put("user", user);
       data.put("token", token);
-      System.out.println("==================== loggin ok: " + user);
+      System.out.println("==================== : " + user);
       return new ResponseEntity<>(new ApiResponse<>(data), HttpStatus.OK);
     } catch (Exception e) {
       System.out.println(e.getMessage());
