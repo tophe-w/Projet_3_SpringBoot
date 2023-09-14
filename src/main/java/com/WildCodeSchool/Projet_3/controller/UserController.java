@@ -134,7 +134,8 @@ public UserEntity getUser(@PathVariable Integer id) {   //Si jamais il y a un pr
               avatarUpdate.setAvatar(avatar);
               userRepository.save(avatarUpdate);
           }
-        return ResponseEntity.ok().build();
+        
+          return ResponseEntity.ok().build();
       }
 
 
@@ -154,6 +155,28 @@ public UserEntity getUser(@PathVariable Integer id) {   //Si jamais il y a un pr
         return ResponseEntity.ok().build();
       }
     
+      @PutMapping("/users/{id}/account/dispo/{dispo}")
+    @ResponseBody
+    public ResponseEntity<?> updateUserdispoAccount(@PathVariable Integer id, @PathVariable Boolean dispo) {
+        UserEntity dispoUpdate = userRepository.findById(id).orElse(null);
+        
 
+        if (dispoUpdate == null) {
+          System.out.println("userToUpdate = null");
+            return ResponseEntity.notFound().build(); // Utilisateur non trouvé
+        }
+          if(dispo == true){
+              dispoUpdate.setIs_available(true);
+              userRepository.save(dispoUpdate);
+              System.out.println("c'est ok " + dispo);
+          }
+          else if(dispo == false){
+            dispoUpdate.setIs_available(false);
+            userRepository.save(dispoUpdate);
+          }
+          
+        return ResponseEntity.ok().build();
+      }
+    
 
 }
