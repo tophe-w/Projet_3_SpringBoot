@@ -4,6 +4,7 @@ package com.WildCodeSchool.Projet_3.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -45,8 +46,9 @@ public class SecurityConfig {
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     http
         .authorizeHttpRequests((requests) -> requests
-
-            .requestMatchers("/register", "/login","/send-email", "/user/{id}","admin/users","/account", "/admin/users/{id}/role","/users/{id}/account/avatar/{avatar}","/users/{id}/account/color/{color}").permitAll()
+        .requestMatchers(HttpMethod.OPTIONS, "/send-message").permitAll()
+        
+            .requestMatchers("/register", "/login","/send-email", "/user/{id}","admin/users","/account", "/admin/users/{id}/role","/users/{id}/account/avatar/{avatar}","/users/{id}/account/color/{color}","/send-message").permitAll()
             .requestMatchers("/logout",  "/user/{id}").hasAnyAuthority("USER", "ADMIN")
             .requestMatchers("/admin", "/only-admin-data").hasAuthority("ADMIN")
             .requestMatchers("/other_routes_example/**")
