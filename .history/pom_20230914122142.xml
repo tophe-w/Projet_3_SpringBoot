@@ -75,6 +75,12 @@
       <artifactId>spring-boot-starter-websocket</artifactId>
     </dependency>
 
+    <repositories>
+    <repository>
+        <id>central</id>
+        <url>https://repo.maven.apache.org/maven2</url>
+    </repository>
+</repositories>
 
 <dependency>
     <groupId>io.socket</groupId>

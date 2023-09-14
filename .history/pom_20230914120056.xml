@@ -75,17 +75,15 @@
       <artifactId>spring-boot-starter-websocket</artifactId>
     </dependency>
 
-
 <dependency>
-    <groupId>io.socket</groupId>
+    <groupId>com.github.nkzawa</groupId>
     <artifactId>socket.io-client</artifactId>
-    <version>2.1.0</version>
+    <version>1.0.1</version> <!-- Utilisez la version la plus récente -->
 </dependency>
-
 <dependency>
     <groupId>com.corundumstudio.socketio</groupId>
     <artifactId>netty-socketio</artifactId>
-    <version>2.0.3</version> <!-- Utilisez la version la plus récente -->
+    <version>1.7.14</version> <!-- Utilisez la version la plus récente -->
 </dependency>
 
 
