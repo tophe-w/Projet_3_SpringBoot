@@ -2,6 +2,8 @@ package com.WildCodeSchool.Projet_3.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import com.WildCodeSchool.Projet_3.dto.ChatMessageDto;
 import com.corundumstudio.socketio.AckRequest;
@@ -36,7 +38,7 @@ public class ChatMessageController {
     public ConnectListener onUserConnectWithSocket = new ConnectListener() {
         @Override
         public void onConnect(SocketIOClient client) {
-            System.out.println("Perform operation on user connect in controller");
+            System.out.println("Perform operation on user connect in controller: " + client);
         }
     };
 
@@ -51,6 +53,7 @@ public class ChatMessageController {
     public DataListener<ChatMessageDto> onSendMessage = new DataListener<ChatMessageDto>() {
         @Override
         public void onData(SocketIOClient client, ChatMessageDto message, AckRequest acknowledge) throws Exception {
+            System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" +message.getMessage());
 
             /**
              * Sending message to target user
@@ -68,5 +71,12 @@ public class ChatMessageController {
             acknowledge.sendAckData("Message send to target user successfully");
         }
     };
-    
+
+    @PostMapping("/send-message")
+    public void sendMessage(@RequestBody ChatMessageDto message) {
+        // SocketIOClient client = socketServer.getClient("2061b8a7-139d-4cb4-8228-6425a6f0a372");
+        // Achercher ce qu'est le client
+        this.onSendMessage.onData(client, message, "messageSendToUser");
+
+    }
 }
