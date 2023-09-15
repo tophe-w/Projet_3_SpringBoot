@@ -26,7 +26,7 @@ import com.WildCodeSchool.Projet_3.utility.ApiResponse;
 @CrossOrigin(origins = "http://localhost:4200")
 public class UserController {
 
-  @Autowired
+  
 
     private UserRepository userRepository;
 
