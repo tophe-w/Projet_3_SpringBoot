@@ -5,6 +5,9 @@ import com.WildCodeSchool.Projet_3.entity.Message;
 
 
 
-public interface MessageRepository extends JpaRepository<Message, Integer> {
+public interface MessageRepository extends JpaRepository<Message, String> {
+
+    
+
     
 }

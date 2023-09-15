@@ -40,17 +40,6 @@ public class UserEntity {
     private boolean is_available;
     private boolean is_connected;
 
-     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Message> messages;
-
-
-    public List<Message> getMessages() {
-        return messages;
-    }
-
-    public void setMessages(List<Message> messages) {
-        this.messages = messages;
-    }
 
 
     public UserEntity() {
