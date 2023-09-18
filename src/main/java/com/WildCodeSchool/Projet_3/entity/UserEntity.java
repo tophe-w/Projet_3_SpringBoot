@@ -22,7 +22,7 @@ public class UserEntity {
     private int id;
 
     @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
-  @JoinColumn(name = "role_id")
+  @JoinColumn(name = "ROLE_id")
   private Role role;
 
     private String name;
