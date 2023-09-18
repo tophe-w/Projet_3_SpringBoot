@@ -66,7 +66,7 @@ public class UserEntity {
         this.password = password;
         this.birthday = birthday;
         this.color = color;
-        this.avatar = avatar;         //chemin avec son.png en enregistré dans le dossier ressources
+        this.avatar = avatar;        
         this.is_available = is_available;
         this.is_connected = is_connected;
         this.role = role;
