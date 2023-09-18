@@ -10,9 +10,9 @@ public class Message_Main {
     private int id;
    
    
-    // @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
-    // @JoinColumn(name = "USER_id")
-       private String user;
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @JoinColumn(name = "USER_id")
+       private UserEntity user;
    
        
        private String message;
@@ -41,12 +41,12 @@ public class Message_Main {
            this.roomName = roomName;
        }
    
-       public String getUser() {
+       public UserEntity getUser() {
            return user;
        }
    
-       public void setUser(String string) {
-           this.user = string;
+       public void setUser(UserEntity user) {
+           this.user = user;
        }
    
    

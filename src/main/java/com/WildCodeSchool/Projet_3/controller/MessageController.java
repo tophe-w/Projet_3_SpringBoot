@@ -43,20 +43,20 @@ public class MessageController {
     @ResponseBody
     public ResponseEntity<ApiResponse<Object>> sender(@RequestBody Message_Main messageSend, @PathVariable int id) {
            Message_Main message = new Message_Main();
-           UserEntity user = userRepository.findById(id).orElse(null);
         try {
+            UserEntity user = userRepository.findById(id).orElse(null);
+
+            System.out.println("ocujhfiurehfsuhfi "+user.getUsername());
 
             
             message.setMessage(messageSend.getMessage());
             message.setHeure(messageSend.getHeure());
             message.setRoomName(messageSend.getRoomName());
-            message.setUser(messageSend.getUser());
-            main_chatRepository.save(message);
+            message.setUser(user);
             
 
             
-            
-                
+                main_chatRepository.save(message);
             
             
 
