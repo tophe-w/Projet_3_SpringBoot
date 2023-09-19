@@ -46,7 +46,7 @@ public class SecurityConfig {
     http
         .authorizeHttpRequests((requests) -> requests
 
-            .requestMatchers("/register", "/login","/send-email","/send-message-global/{id}","/send-message-main/{id}","/all-messages-main","/all-messages-global","/all-messages", "/user/{id}","admin/users","/account","/users/{id}/account/dispo/{dispo}", "/admin/users/{id}/role","/users/{id}/account/avatar/{avatar}","/users/{id}/account/color/{color}").permitAll()
+            .requestMatchers("/register", "/login","/send-email","/send-message-mp/{id}","/all-messages-mp","/send-message-global/{id}","/send-message-main/{id}","/all-messages-main","/all-messages-global","/all-messages", "/user/{id}","admin/users","/account","/users/{id}/account/dispo/{dispo}", "/admin/users/{id}/role","/users/{id}/account/avatar/{avatar}","/users/{id}/account/color/{color}").permitAll()
             .requestMatchers("/logout",  "/user/{id}").hasAnyAuthority("USER", "ADMIN")
             .requestMatchers("/admin", "/only-admin-data").hasAuthority("ADMIN")
             .requestMatchers("/other_routes_example/**")

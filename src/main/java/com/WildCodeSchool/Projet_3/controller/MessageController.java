@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.WildCodeSchool.Projet_3.dto.UserMessageDto;
 import com.WildCodeSchool.Projet_3.entity.Message_Main;
 import com.WildCodeSchool.Projet_3.entity.Message_Mp;
 import com.WildCodeSchool.Projet_3.entity.Message_global;
@@ -92,7 +93,39 @@ public class MessageController {
 
 
 
+@PostMapping("/send-message-mp/{id}")
+    @ResponseBody
+    public ResponseEntity<ApiResponse<Object>> sender(@RequestBody Message_Mp messageSend, @PathVariable int id) {
+           Message_Mp message = new Message_Mp();
+        try {
+            UserEntity user = userRepository.findById(id).orElse(null);
 
+            
+            message.setMessage(messageSend.getMessage());
+            message.setHeure(messageSend.getHeure());
+            message.setUserReceiver(messageSend.getUserReceiver());
+            message.setUser(user);
+            
+
+            
+                mp_chatRepository.save(message);
+            
+            
+
+            return new ResponseEntity<>(new ApiResponse<>(message), HttpStatus.OK);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            return new ResponseEntity<>(new ApiResponse<>(e.getMessage()), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+
+    @GetMapping("/all-messages-mp")
+    @ResponseBody
+    public List<Message_Mp> getAllMessagesMp() {
+          List<Message_Mp> messageList = mp_chatRepository.findAll();
+        return messageList;
+    }
 
 
 
