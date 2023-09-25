@@ -1,9 +1,11 @@
 package com.WildCodeSchool.Projet_3.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -23,7 +25,7 @@ import com.WildCodeSchool.Projet_3.service.UserService;
 import com.WildCodeSchool.Projet_3.utility.ApiResponse;
 
 @Controller
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = {"http://192.168.1.51:4200", "http://localhost:4200"})
 public class UserController {
 
   @Autowired
@@ -87,7 +89,6 @@ public UserEntity getUser(@PathVariable Integer id) {   //Si jamais il y a un pr
 
 
 
-
 @GetMapping("/admin/users")
     @ResponseBody
     public List<UserEntity> getUsers() {
@@ -120,6 +121,9 @@ public UserEntity getUser(@PathVariable Integer id) {   //Si jamais il y a un pr
         List<UserEntity> userList = userRepository.findAll();
         return userList;
     }
+
+
+
 
     @PutMapping("/users/{id}/account/avatar/{avatar}")
     @ResponseBody
@@ -173,6 +177,29 @@ public UserEntity getUser(@PathVariable Integer id) {   //Si jamais il y a un pr
           else if(dispo == false){
             dispoUpdate.setIs_available(false);
             userRepository.save(dispoUpdate);
+          }
+          
+        return ResponseEntity.ok().build();
+      }
+
+      @PutMapping("/users/{id}/account/online/{online}")
+    @ResponseBody
+    public ResponseEntity<?> updateUserdonlineAccount(@PathVariable Integer id, @PathVariable Boolean online) {
+        UserEntity onlineUpdate = userRepository.findById(id).orElse(null);
+        
+
+        if (onlineUpdate == null) {
+          System.out.println("userToUpdate = null");
+            return ResponseEntity.notFound().build(); // Utilisateur non trouvé
+        }
+          if(online == true){
+              onlineUpdate.setIs_connected(true);
+              userRepository.save(onlineUpdate);
+              System.out.println("c'est ok " + online);
+          }
+          else if(online == false){
+            onlineUpdate.setIs_connected(false);
+            userRepository.save(onlineUpdate);
           }
           
         return ResponseEntity.ok().build();

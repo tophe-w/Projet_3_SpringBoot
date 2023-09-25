@@ -27,7 +27,8 @@ import com.WildCodeSchool.Projet_3.repository.UserRepository;
 import com.WildCodeSchool.Projet_3.utility.ApiResponse;
 
 @Controller
-@CrossOrigin(origins = "http://localhost:4200")
+
+@CrossOrigin(origins = {"http://192.168.1.51:4200", "http://localhost:4200"})
 
 public class MessageController {
     @Autowired
@@ -104,6 +105,7 @@ public class MessageController {
             message.setMessage(messageSend.getMessage());
             message.setHeure(messageSend.getHeure());
             message.setUserReceiver(messageSend.getUserReceiver());
+            message.setUserReceiverName(messageSend.getUserReceiverName());
             message.setUser(user);
             
 

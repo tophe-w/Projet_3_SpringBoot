@@ -21,6 +21,7 @@ public class Message_Mp {
     private String message;
     private int userReceiver;
     private String heure;
+    private String userReceiverName;
 
     
     public int getId() {
@@ -29,6 +30,15 @@ public class Message_Mp {
     public void setId(int id) {
         this.id = id;
     }
+
+    public String getUserReceiverName() {
+        return userReceiverName;
+    }
+
+    public void setUserReceiverName(String userReceiverName) {
+        this.userReceiverName = userReceiverName;
+    }
+
     public String getMessage() {
         return message;
     }
