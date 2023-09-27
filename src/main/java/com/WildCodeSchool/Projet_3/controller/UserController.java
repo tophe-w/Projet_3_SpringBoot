@@ -189,13 +189,12 @@ public UserEntity getUser(@PathVariable Integer id) {   //Si jamais il y a un pr
         
 
         if (onlineUpdate == null) {
-          System.out.println("userToUpdate = null");
             return ResponseEntity.notFound().build(); // Utilisateur non trouvé
         }
           if(online == true){
               onlineUpdate.setIs_connected(true);
               userRepository.save(onlineUpdate);
-              System.out.println("c'est ok " + online);
+              
           }
           else if(online == false){
             onlineUpdate.setIs_connected(false);
@@ -205,5 +204,23 @@ public UserEntity getUser(@PathVariable Integer id) {   //Si jamais il y a un pr
         return ResponseEntity.ok().build();
       }
     
+
+      @PutMapping("/users/{id}/pseudo/{pseudo}")
+    @ResponseBody
+    public ResponseEntity<?> updateUserPseudo(@PathVariable Integer id, @PathVariable String pseudo) {
+        UserEntity pseudoUpdate = userRepository.findById(id).orElse(null);
+        
+
+        if (pseudoUpdate == null) {
+            return ResponseEntity.notFound().build(); // Utilisateur non trouvé
+        }
+          if(pseudo != ""){
+              pseudoUpdate.setUsername(pseudo);
+              userRepository.save(pseudoUpdate);
+              
+          }
+          
+        return ResponseEntity.ok().build();
+      }
 
 }
