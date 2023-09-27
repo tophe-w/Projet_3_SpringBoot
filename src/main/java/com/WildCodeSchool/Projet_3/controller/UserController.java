@@ -1,9 +1,11 @@
 package com.WildCodeSchool.Projet_3.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -24,7 +26,7 @@ import com.WildCodeSchool.Projet_3.service.UserService;
 import com.WildCodeSchool.Projet_3.utility.ApiResponse;
 
 @Controller
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = {"http://192.168.1.51:4200", "http://localhost:4200"})
 public class UserController {
 
   @Autowired
@@ -91,7 +93,6 @@ public UserEntity getUser(@PathVariable Integer id) {   //Si jamais il y a un pr
 
 
 
-
 @GetMapping("/admin/users")
     @ResponseBody
     public List<UserEntity> getUsers() {
@@ -136,6 +137,9 @@ public UserEntity getUser(@PathVariable Integer id) {   //Si jamais il y a un pr
         List<UserEntity> userList = userRepository.findAll();
         return userList;
     }
+
+
+
 
     @PutMapping("/users/{id}/account/avatar/{avatar}")
     @ResponseBody
@@ -193,6 +197,46 @@ public UserEntity getUser(@PathVariable Integer id) {   //Si jamais il y a un pr
           
         return ResponseEntity.ok().build();
       }
+
+      @PutMapping("/users/{id}/account/online/{online}")
+    @ResponseBody
+    public ResponseEntity<?> updateUserdonlineAccount(@PathVariable Integer id, @PathVariable Boolean online) {
+        UserEntity onlineUpdate = userRepository.findById(id).orElse(null);
+        
+
+        if (onlineUpdate == null) {
+            return ResponseEntity.notFound().build(); // Utilisateur non trouvé
+        }
+          if(online == true){
+              onlineUpdate.setIs_connected(true);
+              userRepository.save(onlineUpdate);
+              
+          }
+          else if(online == false){
+            onlineUpdate.setIs_connected(false);
+            userRepository.save(onlineUpdate);
+          }
+          
+        return ResponseEntity.ok().build();
+      }
     
+
+      @PutMapping("/users/{id}/pseudo/{pseudo}")
+    @ResponseBody
+    public ResponseEntity<?> updateUserPseudo(@PathVariable Integer id, @PathVariable String pseudo) {
+        UserEntity pseudoUpdate = userRepository.findById(id).orElse(null);
+        
+
+        if (pseudoUpdate == null) {
+            return ResponseEntity.notFound().build(); // Utilisateur non trouvé
+        }
+          if(pseudo != ""){
+              pseudoUpdate.setUsername(pseudo);
+              userRepository.save(pseudoUpdate);
+              
+          }
+          
+        return ResponseEntity.ok().build();
+      }
 
 }
