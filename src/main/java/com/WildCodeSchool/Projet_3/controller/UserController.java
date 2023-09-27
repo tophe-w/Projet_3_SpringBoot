@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -45,7 +46,7 @@ public class UserController {
   public ResponseEntity<ApiResponse<Object>> register(@RequestBody UserDto user) {
     HashMap<String, Object> data = new HashMap<>();
     try {
-
+ 
       userService.register(user);
       String token = jwtUtilService.generateToken(user);
       data.put("user", user);
@@ -56,6 +57,9 @@ public class UserController {
       return new ResponseEntity<>(new ApiResponse<>(e.getMessage()), HttpStatus.BAD_REQUEST);
     }
   }
+
+
+
 
   @PostMapping("/login")
   @ResponseBody
@@ -113,6 +117,18 @@ public UserEntity getUser(@PathVariable Integer id) {   //Si jamais il y a un pr
         } else {
             return ResponseEntity.badRequest().body("ID de rôle invalide."); // ID de rôle incorrect
         }
+    }
+
+    @DeleteMapping("/admin/users/{id}")
+    @ResponseBody
+    public ResponseEntity<?> deleteUser(@PathVariable Integer id) {
+        UserEntity userToDelete = userRepository.findById(id).orElse(null);
+        
+        if (userToDelete == null) {
+            return ResponseEntity.notFound().build(); // Utilisateur non trouvé
+        }
+        userRepository.delete(userToDelete);
+        return ResponseEntity.ok().build(); // Suppression réussie
     }
 
     @GetMapping("/account")
