@@ -73,7 +73,7 @@ public class MessageController {
 
             return new ResponseEntity<>(new ApiResponse<>(message), HttpStatus.OK);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            
             return new ResponseEntity<>(new ApiResponse<>(e.getMessage()), HttpStatus.BAD_REQUEST);
         }
     }
@@ -116,7 +116,6 @@ public class MessageController {
 
             return new ResponseEntity<>(new ApiResponse<>(message), HttpStatus.OK);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
             return new ResponseEntity<>(new ApiResponse<>(e.getMessage()), HttpStatus.BAD_REQUEST);
         }
     }
@@ -163,7 +162,6 @@ public class MessageController {
 
             return new ResponseEntity<>(new ApiResponse<>(message), HttpStatus.OK);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
             return new ResponseEntity<>(new ApiResponse<>(e.getMessage()), HttpStatus.BAD_REQUEST);
         }
     }

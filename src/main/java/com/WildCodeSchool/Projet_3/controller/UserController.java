@@ -52,7 +52,6 @@ public class UserController {
       data.put("token", token);
       return new ResponseEntity<>(new ApiResponse<>(data), HttpStatus.OK);
     } catch (Exception e) {
-      System.out.println(e.getMessage());
       return new ResponseEntity<>(new ApiResponse<>(e.getMessage()), HttpStatus.BAD_REQUEST);
     }
   }
@@ -69,7 +68,6 @@ public class UserController {
       data.put("id", Integer.toString(user.setId(user.getId())));
       return new ResponseEntity<>(new ApiResponse<>(data), HttpStatus.OK);
     } catch (Exception e) {
-      System.out.println(e.getMessage());
       return new ResponseEntity<>(new ApiResponse<>(e.getMessage()), HttpStatus.BAD_REQUEST);
     }
   }
@@ -131,7 +129,6 @@ public UserEntity getUser(@PathVariable Integer id) {   //Si jamais il y a un pr
         UserEntity avatarUpdate = userRepository.findById(id).orElse(null);
 
         if (avatarUpdate == null) {
-          System.out.println("userToUpdate = null");
             return ResponseEntity.notFound().build(); // Utilisateur non trouvé
         }
           if(avatarUpdate.getAvatar() != avatar){
@@ -149,7 +146,7 @@ public UserEntity getUser(@PathVariable Integer id) {   //Si jamais il y a un pr
         UserEntity colorUpdate = userRepository.findById(id).orElse(null);
 
         if (colorUpdate == null) {
-          System.out.println("userToUpdate = null");
+          
             return ResponseEntity.notFound().build(); // Utilisateur non trouvé
         }
           if(colorUpdate.getColor() != color){
@@ -166,13 +163,11 @@ public UserEntity getUser(@PathVariable Integer id) {   //Si jamais il y a un pr
         
 
         if (dispoUpdate == null) {
-          System.out.println("userToUpdate = null");
             return ResponseEntity.notFound().build(); // Utilisateur non trouvé
         }
           if(dispo == true){
               dispoUpdate.setIs_available(true);
               userRepository.save(dispoUpdate);
-              System.out.println("c'est ok " + dispo);
           }
           else if(dispo == false){
             dispoUpdate.setIs_available(false);
