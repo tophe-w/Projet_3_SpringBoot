@@ -25,7 +25,7 @@ import com.WildCodeSchool.Projet_3.service.UserService;
 import com.WildCodeSchool.Projet_3.utility.ApiResponse;
 
 @Controller
-@CrossOrigin(origins = {"http://192.168.1.51:4200", "http://localhost:4200"})
+@CrossOrigin(origins = {"http://192.168.1.51:4200", "http://localhost:4200", "https://sncf-companion.online"})
 public class UserController {
 
   @Autowired
