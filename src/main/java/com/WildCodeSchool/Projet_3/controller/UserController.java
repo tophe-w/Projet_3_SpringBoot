@@ -25,7 +25,7 @@ import com.WildCodeSchool.Projet_3.service.UserService;
 import com.WildCodeSchool.Projet_3.utility.ApiResponse;
 
 @Controller
-@CrossOrigin(origins = {"http://192.168.1.51:4200", "http://localhost:4200", "https://sncf-companion.online"})
+@CrossOrigin(origins = {"http://192.168.1.51:4200", "http://localhost:4200", "https://sncf-companion.online","https://www.sncf-companion.online","http://sncf-companion.online","http://www.sncf-companion.online"})
 public class UserController {
 
   @Autowired
@@ -59,6 +59,7 @@ public class UserController {
   @PostMapping("/login")
   @ResponseBody
   public ResponseEntity<ApiResponse<Object>> login(@RequestBody UserDto user) {
+    
     HashMap<String, Object> data = new HashMap<>();
     try {
       userService.login(user);
