@@ -22,8 +22,11 @@ import io.jsonwebtoken.security.Keys;
 
 
 
+
 @Service
 public class JwtUtil {
+  
+
 
   private Key getKey() {
     byte[] keyBytes = Decoders.BASE64.decode("SECRETKEYquiEstSuperLongSaGrandJeTeLeDisMoiMonAmi");
@@ -46,7 +49,7 @@ public class JwtUtil {
 
   public String generateToken(UserDto userDetails) {
     Map<String, Object> claims = new HashMap<>();
-    claims.put("role", userDetails.getRole());
+    claims.put("role", userDetails.getRole().toString());
     return createToken(claims, userDetails.getUsername());
   }
 

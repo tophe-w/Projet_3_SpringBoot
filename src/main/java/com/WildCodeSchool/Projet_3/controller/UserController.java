@@ -26,7 +26,7 @@ import com.WildCodeSchool.Projet_3.service.UserService;
 import com.WildCodeSchool.Projet_3.utility.ApiResponse;
 
 @Controller
-@CrossOrigin(origins = {"http://192.168.1.51:4200", "http://localhost:4200"})
+@CrossOrigin(origins = {"http://192.168.1.51:4200", "http://localhost:4200", "https://sncf-companion.online","https://www.sncf-companion.online","http://sncf-companion.online","http://www.sncf-companion.online"})
 public class UserController {
 
   @Autowired
@@ -53,7 +53,6 @@ public class UserController {
       data.put("token", token);
       return new ResponseEntity<>(new ApiResponse<>(data), HttpStatus.OK);
     } catch (Exception e) {
-      System.out.println(e.getMessage());
       return new ResponseEntity<>(new ApiResponse<>(e.getMessage()), HttpStatus.BAD_REQUEST);
     }
   }
@@ -64,6 +63,7 @@ public class UserController {
   @PostMapping("/login")
   @ResponseBody
   public ResponseEntity<ApiResponse<Object>> login(@RequestBody UserDto user) {
+    
     HashMap<String, Object> data = new HashMap<>();
     try {
       userService.login(user);
@@ -73,7 +73,6 @@ public class UserController {
       data.put("id", Integer.toString(user.setId(user.getId())));
       return new ResponseEntity<>(new ApiResponse<>(data), HttpStatus.OK);
     } catch (Exception e) {
-      System.out.println(e.getMessage());
       return new ResponseEntity<>(new ApiResponse<>(e.getMessage()), HttpStatus.BAD_REQUEST);
     }
   }
@@ -147,7 +146,6 @@ public UserEntity getUser(@PathVariable Integer id) {   //Si jamais il y a un pr
         UserEntity avatarUpdate = userRepository.findById(id).orElse(null);
 
         if (avatarUpdate == null) {
-          System.out.println("userToUpdate = null");
             return ResponseEntity.notFound().build(); // Utilisateur non trouvé
         }
           if(avatarUpdate.getAvatar() != avatar){
@@ -165,7 +163,7 @@ public UserEntity getUser(@PathVariable Integer id) {   //Si jamais il y a un pr
         UserEntity colorUpdate = userRepository.findById(id).orElse(null);
 
         if (colorUpdate == null) {
-          System.out.println("userToUpdate = null");
+          
             return ResponseEntity.notFound().build(); // Utilisateur non trouvé
         }
           if(colorUpdate.getColor() != color){
@@ -182,13 +180,11 @@ public UserEntity getUser(@PathVariable Integer id) {   //Si jamais il y a un pr
         
 
         if (dispoUpdate == null) {
-          System.out.println("userToUpdate = null");
             return ResponseEntity.notFound().build(); // Utilisateur non trouvé
         }
           if(dispo == true){
               dispoUpdate.setIs_available(true);
               userRepository.save(dispoUpdate);
-              System.out.println("c'est ok " + dispo);
           }
           else if(dispo == false){
             dispoUpdate.setIs_available(false);

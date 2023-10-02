@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.WildCodeSchool.Projet_3.dto.UserMessageDto;
 import com.WildCodeSchool.Projet_3.entity.Message_Main;
 import com.WildCodeSchool.Projet_3.entity.Message_Mp;
 import com.WildCodeSchool.Projet_3.entity.Message_global;
@@ -28,7 +27,7 @@ import com.WildCodeSchool.Projet_3.utility.ApiResponse;
 
 @Controller
 
-@CrossOrigin(origins = {"http://192.168.1.51:4200", "http://localhost:4200"})
+@CrossOrigin(origins = {"http://192.168.1.51:4200", "http://localhost:4200","https://sncf-companion.online","https://www.sncf-companion.online","http://sncf-companion.online","http://www.sncf-companion.online"})
 
 public class MessageController {
     @Autowired
@@ -73,7 +72,7 @@ public class MessageController {
 
             return new ResponseEntity<>(new ApiResponse<>(message), HttpStatus.OK);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            
             return new ResponseEntity<>(new ApiResponse<>(e.getMessage()), HttpStatus.BAD_REQUEST);
         }
     }
@@ -116,7 +115,6 @@ public class MessageController {
 
             return new ResponseEntity<>(new ApiResponse<>(message), HttpStatus.OK);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
             return new ResponseEntity<>(new ApiResponse<>(e.getMessage()), HttpStatus.BAD_REQUEST);
         }
     }
@@ -163,7 +161,6 @@ public class MessageController {
 
             return new ResponseEntity<>(new ApiResponse<>(message), HttpStatus.OK);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
             return new ResponseEntity<>(new ApiResponse<>(e.getMessage()), HttpStatus.BAD_REQUEST);
         }
     }

@@ -7,12 +7,16 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
+import com.WildCodeSchool.Projet_3.entity.UserEntity;
 import com.WildCodeSchool.Projet_3.filters.JwtRequestFilter;
+import com.WildCodeSchool.Projet_3.repository.UserRepository;
 
 @Configuration
 @EnableWebSecurity
@@ -29,27 +33,17 @@ public class SecurityConfig {
     return new BCryptPasswordEncoder();
   }
 
-  // @Bean
-  // public UserDetailsService userDetailsService(UserRepository userRepository) {
-  //   return new UserDetailsService() {
-  //     @Override
-  //     public UserDetails loadUserByUsername(String username) {
-  //       UserEntity user = userRepository.findByUsername(username).get();
-  //       System.out.println("@@@@@ " + user.getRole());
-  //       return user.asUserDetails();
-  //     }
-  //   };
-  // }
 
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     http
+    .cors(cors -> cors.configure(http))
         .authorizeHttpRequests((requests) -> requests
 
 
-            .requestMatchers("/register", "/login","/send-email","/users/{id}/pseudo/{pseudo}","/users/{id}/account/online/{online}","/users-status","/send-message-mp/{id}","/all-messages-mp","/send-message-global/{id}","/send-message-main/{id}","/all-messages-main","/all-messages-global","/all-messages", "/user/{id}","admin/users","/account","/users/{id}/account/dispo/{dispo}", "/admin/users/{id}/role","/users/{id}/account/avatar/{avatar}","/users/{id}/account/color/{color}").permitAll()
-            .requestMatchers("/logout",  "/user/{id}").hasAnyAuthority("USER", "ADMIN")
-            .requestMatchers("/admin", "/only-admin-data").hasAuthority("ADMIN")
+            .requestMatchers("/register", "/login","/send-email","/users/{id}/account/online/{online}").permitAll()
+            .requestMatchers(  "/users/{id}/pseudo/{pseudo}","/logout","/user/{id}","admin/users","/send-message-mp/{id}","/all-messages-mp","/send-message-global/{id}","/send-message-main/{id}","/all-messages-main","/users-status","/all-messages-global","/all-messages", "/user/{id}","/account","/users/{id}/account/dispo/{dispo}","/users/{id}/account/avatar/{avatar}","/users/{id}/account/color/{color}").hasAnyAuthority("USER", "ADMIN")
+            .requestMatchers("/admin",  "/admin/users/{id}/role").hasAuthority("ADMIN")
             .requestMatchers("/other_routes_example/**")
             .authenticated())
         .csrf((csrf) -> csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()) // You can disable csrf protection by removing this line

@@ -57,7 +57,9 @@ public class UserService {
 
   // ############## LOGIN #####################
   public boolean verifyHashedPasswordDuringLogin(String password, String hashedPassword) {
+    
     return bcryptEncoder.matches(password, hashedPassword);
+    
   }
 
   public UserEntity getUserEntityByEmail(String email) {
@@ -77,6 +79,7 @@ public class UserService {
     user.setRole(userEntity.getRole().getType());
     user.setUsername(userEntity.getUsername());
     user.setId(userEntity.getId());
+    
     
     return user;
   }

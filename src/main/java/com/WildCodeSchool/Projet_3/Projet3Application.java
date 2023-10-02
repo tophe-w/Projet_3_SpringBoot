@@ -1,20 +1,20 @@
 package com.WildCodeSchool.Projet_3;
 
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import io.github.cdimascio.dotenv.Dotenv;
 
-import com.WildCodeSchool.Projet_3.repository.UserRepository;
+
 
 @SpringBootApplication
 public class Projet3Application {
 
-	@Autowired
-	UserRepository userRepository;
-
-
 
 	public static void main(String[] args) {
+		Dotenv dotenv = Dotenv.load();
+		String secretKey = dotenv.get("SECRET_KEY");
+		System.out.println("SECRET_KEY: " + secretKey);
 		SpringApplication.run(Projet3Application.class, args);
 	}
 
