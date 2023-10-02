@@ -8,11 +8,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.WildCodeSchool.Projet_3.entity.Message_Main;
 import com.WildCodeSchool.Projet_3.entity.Message_Mp;
@@ -25,7 +27,7 @@ import com.WildCodeSchool.Projet_3.repository.Message_mainRepository;
 import com.WildCodeSchool.Projet_3.repository.UserRepository;
 import com.WildCodeSchool.Projet_3.utility.ApiResponse;
 
-@Controller
+@RestController
 
 @CrossOrigin(origins = {"http://192.168.1.51:4200", "http://localhost:4200","https://sncf-companion.online","https://www.sncf-companion.online","http://sncf-companion.online","http://www.sncf-companion.online"})
 
@@ -138,7 +140,7 @@ public class MessageController {
 
 
 
-    // envoie et récupération des messages de la room main
+    // envoie et récupération des messages de la room main et suppression des messages de la room main
 
     @PostMapping("/send-message-main/{id}")
     @ResponseBody
@@ -176,6 +178,28 @@ public class MessageController {
 
 
     
+
+
+      @DeleteMapping("/message/main/{id}")
+    @ResponseBody
+    public ResponseEntity<?> deleteMessage(@PathVariable Integer id) {
+        Message_Main messageDelete = main_chatRepository.findById(id).orElse(null);
+        
+        if (messageDelete == null) {
+            return ResponseEntity.notFound().build(); // Message non trouvé
+        }
+        main_chatRepository.delete(messageDelete);
+        return ResponseEntity.ok().build(); // Suppression réussie
+    }
+
+    @GetMapping("/account")
+    @ResponseBody
+    public List<UserEntity> getUsersData() {
+        List<UserEntity> userList = userRepository.findAll();
+        return userList;
+    }
+
+
 
 
 

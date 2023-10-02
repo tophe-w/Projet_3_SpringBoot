@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.WildCodeSchool.Projet_3.dto.UserDto;
 import com.WildCodeSchool.Projet_3.entity.UserEntity;
@@ -25,7 +26,7 @@ import com.WildCodeSchool.Projet_3.repository.UserRepository;
 import com.WildCodeSchool.Projet_3.service.UserService;
 import com.WildCodeSchool.Projet_3.utility.ApiResponse;
 
-@Controller
+@RestController
 @CrossOrigin(origins = {"http://192.168.1.51:4200", "http://localhost:4200", "https://sncf-companion.online","https://www.sncf-companion.online","http://sncf-companion.online","http://www.sncf-companion.online"})
 public class UserController {
 
