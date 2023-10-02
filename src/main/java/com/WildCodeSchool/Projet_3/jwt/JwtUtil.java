@@ -22,8 +22,11 @@ import io.jsonwebtoken.security.Keys;
 
 
 
+
 @Service
 public class JwtUtil {
+  
+
 
   private Key getKey() {
     byte[] keyBytes = Decoders.BASE64.decode("SECRETKEYquiEstSuperLongSaGrandJeTeLeDisMoiMonAmi");
