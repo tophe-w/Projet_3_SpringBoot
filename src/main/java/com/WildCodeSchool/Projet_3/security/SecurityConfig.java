@@ -40,6 +40,7 @@ public class SecurityConfig {
     .cors(cors -> cors.configure(http))
         .authorizeHttpRequests((requests) -> requests
 
+
             .requestMatchers("/register", "/login","/send-email","/users/{id}/account/online/{online}").permitAll()
             .requestMatchers(  "/users/{id}/pseudo/{pseudo}","/logout","/user/{id}","admin/users","/send-message-mp/{id}","/all-messages-mp","/send-message-global/{id}","/send-message-main/{id}","/all-messages-main","/users-status","/all-messages-global","/all-messages", "/user/{id}","/account","/users/{id}/account/dispo/{dispo}","/users/{id}/account/avatar/{avatar}","/users/{id}/account/color/{color}").hasAnyAuthority("USER", "ADMIN")
             .requestMatchers("/admin",  "/admin/users/{id}/role").hasAuthority("ADMIN")
