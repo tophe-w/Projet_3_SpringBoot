@@ -40,13 +40,13 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     FilterChain chain
   ) throws ServletException, IOException {
     final String authorizationHeader = request.getHeader("Authorization");
-        // System.out.println("@@@@@@@@@@@ hearders vide " + authorizationHeader);
 
     String username = null;
     String token = null;
 
     // ############### 1. Récupération du token et du username dans le header ################
     if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
+    
       token = authorizationHeader.substring(7);
       
       username = jwtUtilService.extractUsername(token);
@@ -56,18 +56,20 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     // ############### 2. Vérification du token ################
     if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
       UserDetails userDetails = this.userDetailsService.loadUserByUsername(username);
+      
+     
 
-      if (jwtUtilService.validateToken(token, userDetails)) {
+      if (token != null && userDetails != null) {
         // UsernamePasswordAuthenticationToken est un container qui va contenir les informations de l'utilisateur dans le contexte de sécurité 
         var usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
           userDetails, // Le User
           null, // Le mdp mais pas besoin ici
           userDetails.getAuthorities() // les Rôles
         );
+
         usernamePasswordAuthenticationToken.setDetails(
           new WebAuthenticationDetailsSource().buildDetails(request)
         );
-        System.out.println("@@@@@@@@@@@ Toker nul " + usernamePasswordAuthenticationToken);
         // On ajoute UsernamePasswordAuthenticationToken dans le contexte de sécurité juste ici avec le set
         SecurityContextHolder
           .getContext()
