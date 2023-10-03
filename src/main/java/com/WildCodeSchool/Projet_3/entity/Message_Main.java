@@ -57,5 +57,5 @@ public class Message_Main {
        public void setHeure(String heure) {
            this.heure = heure;
        }
-    
+   
 }

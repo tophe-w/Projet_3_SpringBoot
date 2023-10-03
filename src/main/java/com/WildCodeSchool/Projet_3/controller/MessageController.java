@@ -1,7 +1,7 @@
 package com.WildCodeSchool.Projet_3.controller;
 
 import java.util.List;
-
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -176,31 +176,11 @@ public class MessageController {
         return messageList;
     }
 
-
-    
-
-
-      @DeleteMapping("/message/main/{id}")
+    @DeleteMapping("/message/main/{id}")
     @ResponseBody
-    public ResponseEntity<?> deleteMessage(@PathVariable Integer id) {
-        Message_Main messageDelete = main_chatRepository.findById(id).orElse(null);
-        
-        if (messageDelete == null) {
-            return ResponseEntity.notFound().build(); // Message non trouvé
-        }
-        main_chatRepository.delete(messageDelete);
-        return ResponseEntity.ok().build(); // Suppression réussie
+    public void deleteMessageMain(@PathVariable Integer id) {
+        main_chatRepository.deleteById(id);
     }
-
-    @GetMapping("/account")
-    @ResponseBody
-    public List<UserEntity> getUsersData() {
-        List<UserEntity> userList = userRepository.findAll();
-        return userList;
-    }
-
-
-
 
 
 }

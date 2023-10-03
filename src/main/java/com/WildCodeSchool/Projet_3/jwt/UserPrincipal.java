@@ -9,7 +9,6 @@ import java.util.List;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import com.WildCodeSchool.Projet_3.entity.UserEntity;
 
 public class UserPrincipal implements UserDetails {
@@ -20,7 +19,9 @@ public class UserPrincipal implements UserDetails {
     this.userEntity = userEntity;
   }
 
-  @Override
+
+
+@Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
     List<GrantedAuthority> authorities = new ArrayList<>();
     authorities.add(new SimpleGrantedAuthority(userEntity.getRole().getType()));
