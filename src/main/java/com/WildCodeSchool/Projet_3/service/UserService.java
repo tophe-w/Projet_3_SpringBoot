@@ -47,7 +47,7 @@ public class UserService {
     String hashedpassword = bcryptEncoder.encode(user.getPassword());
 
     Role userRole = roleRepository.findById(2L).get();
-    UserEntity newUser = new UserEntity(user.getName(),hashedpassword,false,user.getEmail(),userRole,user.getBirthday(),user.getFirstname(),user.getUsername(),"avatar/AvatarH1.png","",false);
+    UserEntity newUser = new UserEntity(user.getName(),hashedpassword,false,user.getEmail(),userRole,user.getBirthday(),user.getFirstname(),user.getUsername(),"arbre.png","",false);
     user.setRole(userRole.getType());
     userRepository.save(newUser);
     return user;
@@ -57,7 +57,9 @@ public class UserService {
 
   // ############## LOGIN #####################
   public boolean verifyHashedPasswordDuringLogin(String password, String hashedPassword) {
+    
     return bcryptEncoder.matches(password, hashedPassword);
+    
   }
 
   public UserEntity getUserEntityByEmail(String email) {
@@ -77,6 +79,7 @@ public class UserService {
     user.setRole(userEntity.getRole().getType());
     user.setUsername(userEntity.getUsername());
     user.setId(userEntity.getId());
+    
     
     return user;
   }

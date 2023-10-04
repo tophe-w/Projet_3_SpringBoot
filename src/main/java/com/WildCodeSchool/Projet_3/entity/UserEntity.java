@@ -22,7 +22,7 @@ public class UserEntity {
     private int id;
 
     @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
-  @JoinColumn(name = "role_id")
+  @JoinColumn(name = "ROLE_id")
   private Role role;
 
     private String name;
@@ -40,17 +40,6 @@ public class UserEntity {
     private boolean is_available;
     private boolean is_connected;
 
-     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Message> messages;
-
-
-    public List<Message> getMessages() {
-        return messages;
-    }
-
-    public void setMessages(List<Message> messages) {
-        this.messages = messages;
-    }
 
 
     public UserEntity() {
@@ -71,6 +60,7 @@ public class UserEntity {
         this.is_connected = is_connected;
         this.role = role;
     }
+
 
     
 

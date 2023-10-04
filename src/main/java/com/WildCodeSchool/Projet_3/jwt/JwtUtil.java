@@ -5,6 +5,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
+import io.github.cdimascio.dotenv.Dotenv;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -22,11 +25,17 @@ import io.jsonwebtoken.security.Keys;
 
 
 
+
 @Service
 public class JwtUtil {
 
+  
+  
+  Dotenv dotenv = Dotenv.load();
+
+
   private Key getKey() {
-    byte[] keyBytes = Decoders.BASE64.decode("SECRETKEYquiEstSuperLongSaGrandJeTeLeDisMoiMonAmi");
+    byte[] keyBytes = Decoders.BASE64.decode(dotenv.get("SPRING_DATA_SECRET_KEY"));
     // La clé doit faire 256bits
     Key key = Keys.hmacShaKeyFor(keyBytes);
     return key;
@@ -46,7 +55,7 @@ public class JwtUtil {
 
   public String generateToken(UserDto userDetails) {
     Map<String, Object> claims = new HashMap<>();
-    claims.put("role", userDetails.getRole());
+    claims.put("role", userDetails.getRole().toString());
     return createToken(claims, userDetails.getUsername());
   }
 

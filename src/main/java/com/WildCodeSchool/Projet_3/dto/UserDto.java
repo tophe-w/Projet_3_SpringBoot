@@ -11,10 +11,31 @@ public class UserDto {
   private String password;
   private String email;
   private String role;
+  private boolean is_connected;
+  private boolean is_available;
+
  
 
   public UserDto() {
   }
+
+
+  public boolean isIs_available() {
+    return is_available;
+}
+
+public void setIs_available(boolean is_available) {
+    this.is_available = is_available;
+}
+
+
+  public boolean isIs_connected() {
+    return is_connected;
+}
+
+public void setIs_connected(boolean is_connected) {
+    this.is_connected = is_connected;
+} 
 
 
 public int getId() {
