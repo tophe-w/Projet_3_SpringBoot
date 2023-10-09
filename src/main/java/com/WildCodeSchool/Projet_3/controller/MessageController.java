@@ -81,11 +81,18 @@ public class MessageController {
 
 
 
-    @GetMapping("/all-messages-global")
+    @GetMapping("/all-messages-global/{size}")
     @ResponseBody
-    public List<Message_global> getAllMessagesGlobal() {
+    public List<Message_global> getAllMessagesGlobal(@PathVariable long size) {
           List<Message_global> messageList = global_chatRepository.findAll();
-        return messageList;
+            if (messageList.size() > size) {
+                return messageList;
+            } else {
+                return null;
+            }
+
+
+        
     }
 
 
